@@ -1,5 +1,6 @@
 services:
   glpi-kanban:
+    build: .
     image: ghcr.io/robertocjunior/glpi-kanban:latest
     container_name: glpi-kanban
     restart: unless-stopped
