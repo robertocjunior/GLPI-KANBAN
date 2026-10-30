@@ -1,0 +1,20 @@
+# Binários
+glpi-kanban
+glpi-kanban.exe
+
+# Dados locais
+data/*.db
+data/*.db-wal
+data/*.db-shm
+logs/*
+!logs/.gitkeep
+!data/.gitkeep
+
+# Variáveis de ambiente
+.env
+.env.local
+
+# IDEs
+.idea/
+.vscode/
+*.swp

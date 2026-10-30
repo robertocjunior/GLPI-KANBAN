@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GLPI Kanban | Sistemas Lipetral</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Top Navigation Bar (Microsoft Metro / Fluent Dark) -->
+    <header class="top-bar">
+        <div class="brand">
+            <div class="brand-square">GLPI</div>
+            <div class="brand-info">
+                <h1>GLPI KANBAN</h1>
+                <span class="brand-sub">Sistemas Lipetral • Controle Pessoal</span>
+            </div>
+        </div>
+
+        <div class="search-section">
+            <input type="text" id="searchInput" placeholder="Filtrar por ID, título, solicitante ou categoria..." autocomplete="off">
+            <button id="clearSearchBtn" title="Limpar pesquisa">&times;</button>
+        </div>
+
+        <div class="filter-group">
+            <button class="filter-btn active" data-filter="all">Todos</button>
+            <button class="filter-btn" data-filter="my">Meus</button>
+            <button class="filter-btn" data-filter="queue">Fila</button>
+            <button class="filter-btn" data-filter="critical">Críticos</button>
+        </div>
+
+        <div class="actions-section">
+            <div class="sync-status">
+                <span class="status-indicator live" id="syncDot"></span>
+                <span id="syncText">Conectado</span>
+                <span class="sync-time" id="lastSyncTime">-</span>
+            </div>
+            <button id="refreshBtn" class="ms-btn primary" title="Atualizar dados do GLPI">
+                <span class="btn-icon">↻</span> Sincronizar
+            </button>
+        </div>
+    </header>
+
+    <!-- Sub Header Stats Strip -->
+    <div class="stats-strip">
+        <div class="stat-item">
+            <span class="stat-label">TOTAL GERAL</span>
+            <span class="stat-value" id="statTotal">0</span>
+        </div>
+        <div class="stat-item queue">
+            <span class="stat-label">FILA SISTEMAS</span>
+            <span class="stat-value" id="statQueue">0</span>
+        </div>
+        <div class="stat-item mine">
+            <span class="stat-label">ATRIBUÍDOS A MIM</span>
+            <span class="stat-value" id="statMine">0</span>
+        </div>
+        <div class="stat-item active-work">
+            <span class="stat-label">EM ANDAMENTO</span>
+            <span class="stat-value" id="statInProgress">0</span>
+        </div>
+        <div class="stat-item notice">
+            <span class="notice-badge">Somente Leitura no GLPI</span>
+            <span class="notice-desc">Arrastar cards e anotações são salvos localmente no SQLite. O GLPI não é modificado.</span>
+        </div>
+    </div>
+
+    <!-- Main Kanban Board Area -->
+    <main class="board-container" id="boardContainer">
+        <!-- As colunas serão renderizadas dinamicamente aqui -->
+        <div class="board-loading">
+            <div class="spinner"></div>
+            <p>Carregando chamados e integrando ao SQLite local...</p>
+        </div>
+    </main>
+
+    <!-- Modal de Anotação Local Rápida -->
+    <div class="modal-backdrop" id="noteModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTicketTitle">Anotação do Chamado #0000</h3>
+                <button class="close-btn" id="closeNoteModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-meta" id="modalTicketMeta"></p>
+                <label for="noteInput" class="modal-label">Notas de trabalho / Checklist / Próximos passos (salvo no SQLite local):</label>
+                <textarea id="noteInput" rows="6" placeholder="Escreva aqui detalhes do andamento, pendências com usuários, código de rotina Protheus, etc..."></textarea>
+            </div>
+            <div class="modal-footer">
+                <button class="ms-btn" id="cancelNoteBtn">Cancelar</button>
+                <button class="ms-btn primary" id="saveNoteBtn">Salvar Anotação</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
